@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import datetime
 
-st.set_page_config(page_title="ChatMate v0.4", page_icon="🤖")
+st.set_page_config(page_title="ChatMate v0.5", page_icon="🤖")
 # Sidebar toggle for calming background
 use_bg = st.sidebar.selectbox(
     "🌄 Calming Background Image",
