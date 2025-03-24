@@ -3,6 +3,74 @@ import random
 import datetime
 
 st.set_page_config(page_title="ChatMate v0.4", page_icon="🤖")
+# Sidebar toggle for calming background
+use_bg = st.sidebar.selectbox(
+    "🌄 Calming Background Image",
+    ("None", "Galaxy Gradient", "Nature Blur", "Ocean Waves")
+)
+
+# Load Google Font (Quicksand)
+st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+""", unsafe_allow_html=True)
+
+# Apply styles and optional background
+background_css = """
+    <style>
+    body {
+        background-color: #eae8f4;  /* base calm background */
+        font-family: 'Quicksand', sans-serif;
+    }
+    .chat-message {
+        padding: 10px 15px;
+        margin: 8px;
+        border-radius: 20px;
+        max-width: 80%;
+    }
+    .user-message {
+        background-color: #f0f0f0;
+        color: #000;
+        text-align: left;
+    }
+    .chatmate-message {
+        background-color: #d9d9d9;
+        color: #000;
+        text-align: right;
+        float: right;
+    }
+    .timestamp {
+        text-align: center;
+        color: #666;
+        margin-top: 10px;
+    }
+    """
+
+# Optional background image logic
+if use_bg != "None":
+    bg_urls = {
+        "Galaxy Gradient": "https://images.unsplash.com/photo-1615751072473-6c3d53a6f8d3?blur=50",
+        "Nature Blur": "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?blur=50",
+        "Ocean Waves": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?blur=50"
+    }
+    selected_url = bg_urls[use_bg]
+    background_css += f"""
+        body::before {{
+            content: "";
+            background: url('{selected_url}') no-repeat center center fixed;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(6px);
+        }}
+    """
+
+background_css += "</style>"
+st.markdown(background_css, unsafe_allow_html=True)
 
 # --- Memory and State Initialization ---
 if "user_name" not in st.session_state:
